@@ -9,7 +9,6 @@ class FolderCreateApiView(CreateAPIView):
     serializer_class = FolderSerializer
 
 
-# TODO: add folder filterig (per parent_id)
 class FolderListApiViews(ListAPIView):
     queryset = Folder.objects.all()
     serializer_class = FolderSerializer

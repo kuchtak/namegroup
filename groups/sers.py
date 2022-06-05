@@ -36,7 +36,6 @@ class NameFileUploadSerializer(NameAddSerializer):
         return attr
 
     def create(self, validated_data):
-        # TODO: should be parsed row by row.
         grouped_names = group_names(self.context["request"].FILES["file"].
                                     read().decode().splitlines())
         save_or_update_grouped_names(grouped_names, folder_id=validated_data["folder_id"])
@@ -86,7 +85,8 @@ class UpdateNameFolderSerializer(serializers.Serializer):
 
         dest_obj = Name.objects.filter(dest_name_query).first()
 
-        # TODO: recalculate prefixes
+        # We assume here that prefixes are calculated globally.
+        # Not per folder.
         if dest_obj is not None:
             # If the same object exists in the destination folder
             # remove the name object form th folder with id from_folder_id.
